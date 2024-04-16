@@ -57,13 +57,23 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
+    # def delete(self, obj=None):
+    #     """delete obj from storage"""
+    #     if obj:
+    #         serial = obj.to_dict()
+    #         obj_id = serial["id"]
+    #         class_name = serial["__class__"]
+    #         key = class_name+"."+obj_id
+    #         if key in FileStorage.__objects:
+    #             del (FileStorage.__objects[key])
+    #             self.save()
     def delete(self, obj=None):
-        """delete obj from storage"""
+        """delete obj from __objects if its inside
+        if obj is equal to None, the method should not do anything"""
         if obj:
-            serial = obj.to_dict()
-            obj_id = serial["id"]
-            class_name = serial["__class__"]
-            key = class_name+"."+obj_id
+            id = obj.to_dict()["id"]
+            classname = obj.to_dict()["__class__"]
+            key = classname+"."+id
             if key in FileStorage.__objects:
                 del (FileStorage.__objects[key])
                 self.save()
