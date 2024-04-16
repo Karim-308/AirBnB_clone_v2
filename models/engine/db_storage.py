@@ -3,7 +3,6 @@
 The DBStorage class 
 """
 
-import models
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
