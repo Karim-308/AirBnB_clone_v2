@@ -61,9 +61,9 @@ class FileStorage:
         """delete obj from storage"""
         if obj:
             serial = obj.to_dict()
-            id = serial["id"]
+            obj_id = serial["id"]
             class_name = serial["__class__"]
-            key = class_name+"."+id
+            key = class_name+"."+obj_id
             if key in FileStorage.__objects:
                 del (FileStorage.__objects[key])
                 self.save()
