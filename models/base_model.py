@@ -4,6 +4,16 @@ import uuid
 from datetime import datetime
 import models
 from models.engine.file_storage import *
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+
+if models.storage_t == "db":
+    Base = declarative_base()
+else:
+    Base = object
 
 
 class BaseModel:
@@ -11,6 +21,10 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         '''the constructor'''
+    if models.storage_t == "db":
+        id = Column(String(60), primary_key=True)
+        created_at = Column(DateTime, default=datetime.utcnow)
+        updated_at = Column(DateTime, default=datetime.utcnow)
 
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
@@ -25,7 +39,6 @@ class BaseModel:
                     continue
                 else:
                     setattr(self, key, value)
-        models.storage.new(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -36,6 +49,7 @@ class BaseModel:
         """Updates updated_at with current time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
+        models.storage.new(self)
         storage.save()
 
     def to_dict(self):
@@ -46,4 +60,10 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
+        if '_sa_instance_state' in dictionary:
+            del dictionary['_sa_instance_state']
         return dictionary
+   
+    def delete(self): 
+        """ delete the current instance from the storage """
+        models.storage.delete(self)
