@@ -24,9 +24,10 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if not cls:
             return FileStorage.__objects
+
         objs = {}
         for key, val in FileStorage.__objects.items():
-            if key.split('.') == cls.__name__:
+            if key.split('.')[0] == cls.__name__:
                 objs[key] = val
         return objs
 
