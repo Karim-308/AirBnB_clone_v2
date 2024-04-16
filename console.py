@@ -131,7 +131,6 @@ class HBNBCommand(cmd.Cmd):
         try:
             for param in args[1:]:
                 key, value = param.split('=')
-                # Handle value formatting
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1].replace('_', ' ')
                 elif '.' in value:
