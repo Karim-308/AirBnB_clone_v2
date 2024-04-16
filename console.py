@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+print("Hello, World!")#!/usr/bin/python3
 """ Console Module """
 import cmd
 import sys
@@ -113,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-     def do_create(self, arg):
+    def do_create(self, arg):
         """
         Create a new instance of a class with given parameters.
         Usage: create <Class name> <param1>=<value1> <param2>=<value2> ...
