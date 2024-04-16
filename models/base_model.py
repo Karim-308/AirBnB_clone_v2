@@ -2,27 +2,30 @@
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
+import models
+from models.engine.file_storage import *
 
 
 class BaseModel:
     """A base class for all hbnb models"""
+
     def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
-        if not kwargs:
-            from models import storage
+        '''the constructor'''
+
+        if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
         else:
-            # Convert ISO formatted strings to datetime objects
-            kwargs['updated_at'] = kwargs.get('updated_at', datetime.now())
-            kwargs['created_at'] = kwargs.get('created_at', datetime.now())
-
-        if '__class__' in kwargs:
-            del kwargs['__class__']
-
-        self.__dict__.update(kwargs)
+            regex_Str = "%Y-%m-%dT%H:%M:%S.%f"
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.strptime(value, regex_Str))
+                elif key == "__class__":
+                    continue
+                else:
+                    setattr(self, key, value)
+        models.storage.new(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
