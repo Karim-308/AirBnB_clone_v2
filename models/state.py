@@ -11,7 +11,7 @@ class State(BaseModel, Base):
     """ State class """
     if models.storage_t == "db":
         __tablename__ = 'states'
-        name = Column(String(128), nullable=False)
+        name = Column(String(128), nullable=False ,primary_key=True)
         cities = relationship("City", backref="state")
     else:
         name = ""
