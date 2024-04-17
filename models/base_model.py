@@ -13,12 +13,6 @@ if models.storage_t == "db":
     Base = declarative_base()
 else:
     Base = object
-class BaseModel(declarative_base):
-
-if models.storage_t == "db":
-    Base = declarative_base()
-else:
-    Base = object
 
 
 class BaseModel:
