@@ -17,12 +17,11 @@ else:
 
 class BaseModel:
     """A base class for all hbnb models"""
-
+    id = Column(String(60), primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
     def __init__(self, *args, **kwargs):
         '''the constructor'''
-        id = Column(String(60), primary_key=True)
-        created_at = Column(DateTime, default=datetime.utcnow)
-        updated_at = Column(DateTime, default=datetime.utcnow)
         if kwargs:
             if len(kwargs) == 0:
                 self.id = str(uuid.uuid4())
