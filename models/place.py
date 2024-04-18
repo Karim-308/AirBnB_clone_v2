@@ -50,9 +50,9 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    def __init__(self, *args, **kwargs):
-        """ initializes Place """
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     """ initializes Place """
+    #     super().__init__(*args, **kwargs)
 
     if models.storage_t != 'db':
         @property
@@ -77,9 +77,9 @@ class Place(BaseModel, Base):
                     amenity_list.append(amenity)
             return amenity_list
         
-        # @amenities.setter
-        # def amenities(self, amenity):
-        #     """Amenity Setter"""
-        #     from models.amenity import Amenity
-        #     if isinstance(amenity, Amenity):
-        #         self.amenity_ids.append(amenity.id)
+        @amenities.setter
+        def amenities(self, amenity):
+            """Amenity Setter"""
+            from models.amenity import Amenity
+            if isinstance(amenity, Amenity):
+                self.amenity_ids.append(amenity.id)
