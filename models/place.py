@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 """ Place Module for HBNB project """
 import models
@@ -33,7 +32,8 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
-        reviews = relationship("Review", backref="place", cascade="all, delete")
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete")
         amenities = relationship("Amenity", secondary="place_amenity",
                                  backref="place_amenities",
                                  viewonly=False)
@@ -57,7 +57,7 @@ class Place(BaseModel, Base):
     if models.storage_t != 'db':
         @property
         def reviews(self):
-            """ this is a getter attribute returns the list of Review instances"""
+            """ this's getter attribute returns list of Review instances"""
             from models.review import Review
             review_list = []
             all_reviews = models.storage.all(Review)
