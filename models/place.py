@@ -77,9 +77,9 @@ class Place(BaseModel, Base):
                     amenity_list.append(amenity)
             return amenity_list
         
-        @amenities.setter
-        def amenities(self, amenity):
-            """Amenity Setter"""
-            from models.amenity import Amenity
-            if isinstance(amenity, Amenity):
-                self.amenity_ids.append(amenity.id)
+        # @amenities.setter
+        # def amenities(self, amenity):
+        #     """Amenity Setter"""
+        #     from models.amenity import Amenity
+        #     if isinstance(amenity, Amenity):
+        #         self.amenity_ids.append(amenity.id)
